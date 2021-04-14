@@ -9,7 +9,7 @@ class Simulation extends Component {
         this.myRef = React.createRef();
     }
 
-    npm () { //클래스가 마운트 되려할 때
+    componentDidMount() { //클래스가 마운트 되려할 때
         const color = d3.scaleOrdinal(d3.schemeAccent);
 
         this.svg = d3.select(this.myRef.current)
