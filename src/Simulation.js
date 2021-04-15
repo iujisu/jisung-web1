@@ -13,9 +13,9 @@ class Simulation extends Component {
         const color = d3.scaleOrdinal(d3.schemeAccent);
 
         this.svg = d3.select(this.myRef.current)
-            .attr("width", "500")
-            .attr("height", "600")
-            .style("border", "1px solid black")
+            .attr("width", "100%")
+            .attr("height", "800")
+         //   .style("border", "1px solid black")
         
         const ticked = () => {
             this.link
@@ -48,7 +48,7 @@ class Simulation extends Component {
         this.simulation = d3.forceSimulation()
         .force("link", d3.forceLink().id(function(d) { return d.id; }))
         .force("charge", d3.forceManyBody())
-        .force("center", d3.forceCenter(500 / 2, 600 / 2));
+        .force("center", d3.forceCenter(1000 / 2, 800 / 2));
 
         this.link = this.svg.append("g")
           .attr("class", "links")
@@ -84,9 +84,6 @@ class Simulation extends Component {
     render(){
         return (
           <div>
-            <header className="App-header">
-            Relationships beta v1.0
-            </header>
             <svg ref={this.myRef} height="4rem" color="#2f3e4d" ></svg>
           </div>
         );
