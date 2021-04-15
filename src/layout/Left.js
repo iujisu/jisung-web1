@@ -4,7 +4,11 @@ class Left extends Component{
     render(){
         return (
             <div className="app-left">
-              Left 입니다.
+                <div>MY HOME</div>
+                <div>가족</div>
+                <div>친구</div>
+                <div>직장</div>
+                <div>관계추가</div>
             </div>
         )
     }
