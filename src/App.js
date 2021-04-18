@@ -1,18 +1,13 @@
 import React, { Component } from "react";
+import {BrowserRouter as Router,Redirect,Route,Switch} from 'react-router-dom';
 import './css/App.css';
-import Header from './layout/Header';
-import Body from './layout/Body';
-import Left from './layout/Left';
-import Footer from './layout/Footer';
+import Login from "./pages/Login";
+import MyRelationships from './pages/MyRelationships';
 
 const styles = {
   app:{
     width : "100%",
     height: "100%",
-  },
-  Body:{
-    display:"flex",
-    alignItems: "flex-start"
   }
 }
 
@@ -20,12 +15,13 @@ class App extends Component {
   render() {
     return (
       <div className="App" style={styles.app}>
-        <Header/>
-        <div className="BodyLeyout" style={styles.Body}>
-          <Left/>
-          <Body/>
-        </div>
-        <Footer/>
+      <Router>
+        <Switch>
+          <Route path="/login" component={Login} />
+          <Route path="/MyRelationships" component={MyRelationships} />
+          <Redirect from="/" exact to="/login" />
+        </Switch>
+      </Router>
       </div>
     );
   }
