@@ -28,16 +28,22 @@ class Signup extends Component {
     //     console.log(res);
     //     console.log(res.data);
     //   })
+    /*
     const post ={
-      userid:this.state.userid,
+      id:this.state.userid,
       pwd:this.state.pwd
     }
-
-    axios.post('http://localhost:8080/member/memberadd', post)
+    */
+    const post ={
+      userId:"rtwerqwqwe",
+      userName:"1111"
+    }
+    axios.post('http://localhost:8080/api/memberadd', post)
     .then((response) => {
       if (response.status >= 200 && response.status <= 204) {
         alert('가입에 성공하셨습니다!');
-        this.props.history.push('/');
+        console.log("----handleSubmit----")
+        this.props.history.push("/MyRelationships");
       }
     })
     .catch(() => {
@@ -45,29 +51,39 @@ class Signup extends Component {
     })
   }
 
+  
   render() {
     return(
       <div className="signup-form-wrapper">
         <Header/>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} method="post">
           <table>
             <tbody>
-              <tr>
-                <th>아이디</th>
-                <td><input type='text' name='userid' /></td>
-              </tr>
-              <tr>
-                <th>비밀번호</th>
-                <td><input type='password' name='pwd' /></td>
-              </tr>
-              <tr>
-                <th>닉네임</th>
-                <td><input type='text' name='nickname' /></td>
-              </tr>
               <tr>
                 <th>이름</th>
                 <td><input type='text' name='fullname' /></td>
               </tr>
+              <tr>
+                <th>아이디</th>
+                <td><input type='text' name='userid' value="test" /></td>
+              </tr>
+              <tr>
+                <th>비밀번호</th>
+                <td><input type='password' name='password'  value="1234" /></td>
+              </tr>
+              <tr>
+                <th>비밀번호확인</th>
+                <td><input type='password' name='re_password'  value="1234" /></td>
+              </tr>
+              <tr>
+                <th>전화번호</th>
+                <td><input type='text' name='phone_number' /></td>
+              </tr>
+              <tr>
+                <th>Eamail</th>
+                <td><input type='text' name='email' /></td>
+              </tr>
+             
             </tbody>
           </table>
           <button type="submit">가입</button>
