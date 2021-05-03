@@ -6,84 +6,118 @@ class Signup extends Component {
   constructor(props){
     super(props);
     this.state={
+      file: null,
+      fullname:'',
       userid:'',
-      pwd:''
+      password:'',
+      re_password:'',
+      phone_number:'',
+      email:''
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleFileChange = this.handleFileChange.bind(this);
+    this.handleValueChange = this.handleValueChange.bind(this);
+    this.addCustomer = this.addCustomer.bind(this);
   }
-
-  handleSubmit = (e) => {
-    //e.preventDefault();
-
-    // this.props.handleAccount({
-    //   email: e.target.email.value,
-    //   pwd: e.target.pwd.value,
-    //   nickname: e.target.nickname.value,
-    //   name: e.target.fullname.value
-    // });
-    console.log("==============handleSubmit==============")
-    // axios.get('http://localhost:8080/member/memberadd', ({userid: this.state.userid}, {fullname: this.state.fullname} )) 
-    // // { {userid: this.state.userid}, {fullname: this.state.fullname} , usergroup: this.state.usergroup, emailid: this.state.emailid, mobile: this.state.mobile, title: this.state.title }) 
-    // // { userform, fullnameForm, usergroupForm, emailidForm, mobileForm, titleForm }) 
-    //   .then(res => {
-    //     console.log(res);
-    //     console.log(res.data);
-    //   })
-    /*
-    const post ={
-      id:this.state.userid,
-      pwd:this.state.pwd
-    }
-    */
-    const post ={
-      userId:"rtwerqwqwe",
-      userName:"1111"
-    }
-    axios.post('http://localhost:8080/api/memberadd', post)
-    .then((response) => {
+  handleSubmit(e) {
+    console.log("==============handleSubmit==============");
+    e.preventDefault()
+    this.addCustomer().then((response) => {
+      console.log(response);
       if (response.status >= 200 && response.status <= 204) {
-        alert('가입에 성공하셨습니다!');
-        console.log("----handleSubmit----")
-        this.props.history.push("/MyRelationships");
-      }
+        //     alert('가입에 성공하셨습니다!');
+        //     console.log("----handleSubmit----")
+        //     this.props.history.push("/MyRelationships");
+         }
+    }).catch((error) => {
+      console.log(error);
+      //alert('이미 가입된 아이디입니다.');
     })
-    .catch(() => {
-      alert('이미 가입된 아이디입니다.');
-    })
+    // const post ={
+    //   userId:"rtwerqwqwe",
+    //   userName:"1111"
+    // }
+    // axios.post('http://localhost:8080/api/memberadd', post)
+    // .then((response) => {
+    //   if (response.status >= 200 && response.status <= 204) {
+    //     alert('가입에 성공하셨습니다!');
+    //     console.log("----handleSubmit----")
+    //     this.props.history.push("/MyRelationships");
+    //   }
+    // })
+    // .catch(() => {
+    //   alert('이미 가입된 아이디입니다.');
+    // })
   }
 
-  
+  handleFileChange(e) {
+    this.setState({
+    file: e.target.files[0],
+    fileName: e.target.value
+    }); 
+  }
+
+  handleValueChange(e) {
+    let nextState = {};
+    nextState[e.target.name] = e.target.value;
+    this.setState(nextState);
+  }
+
+  addCustomer(){
+    const url = 'http://localhost:8080/api/memberadd';
+    const formData = new FormData();
+    formData.append('file', this.state.file);
+    formData.append('fullname', this.state.fullname);
+    formData.append('userid', this.state.userid);
+    formData.append('password', this.state.password);
+    formData.append('phone_number', this.state.phone_number);
+    formData.append('email', this.state.email);
+    const config = {
+      headers: {
+        'Accept': 'application/json, application/*+json',
+        'Content-Type': 'multipart/form-data'
+      }
+    }
+    return axios.post(url, formData, config)
+  }
+    
+
+    
   render() {
     return(
       <div className="signup-form-wrapper">
         <Header/>
-        <form onSubmit={this.handleSubmit} method="post">
+        <form onSubmit={this.handleSubmit}  method="post">
           <table>
             <tbody>
               <tr>
+                <th>이미지</th>
+                <td><input type="file" name="file" onChange={this.handleFileChange} /></td>
+              </tr>
+              <tr>
                 <th>이름</th>
-                <td><input type='text' name='fullname' /></td>
+                <td><input type='text' name='fullname'  value={this.state.fullname} onChange={this.handleValueChange}  /></td>
               </tr>
               <tr>
                 <th>아이디</th>
-                <td><input type='text' name='userid' value="test" /></td>
+                <td><input type='text' name='userid'  value={this.state.userid} onChange={this.handleValueChange} /></td>
               </tr>
               <tr>
                 <th>비밀번호</th>
-                <td><input type='password' name='password'  value="1234" /></td>
+                <td><input type='password' name='password'  value={this.state.password} onChange={this.handleValueChange}  /></td>
               </tr>
               <tr>
                 <th>비밀번호확인</th>
-                <td><input type='password' name='re_password'  value="1234" /></td>
+                <td><input type='password' name='re_password'  value={this.state.re_password} onChange={this.handleValueChange}  /></td>
               </tr>
               <tr>
                 <th>전화번호</th>
-                <td><input type='text' name='phone_number' /></td>
+                <td><input type='text' name='phone_number'value={this.state.phone_number} onChange={this.handleValueChange}  /></td>
               </tr>
               <tr>
                 <th>Eamail</th>
-                <td><input type='text' name='email' /></td>
+                <td><input type='text' name='email'value={this.state.email} onChange={this.handleValueChange}  /></td>
               </tr>
-             
             </tbody>
           </table>
           <button type="submit">가입</button>
