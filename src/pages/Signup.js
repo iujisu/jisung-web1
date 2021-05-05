@@ -7,8 +7,8 @@ class Signup extends Component {
     super(props);
     this.state={
       file: null,
-      fullname:'',
-      userid:'',
+      user_name:'',
+      user_id:'',
       password:'',
       re_password:'',
       phone_number:'',
@@ -67,10 +67,10 @@ class Signup extends Component {
     const url = 'http://localhost:8080/api/memberadd';
     const formData = new FormData();
     formData.append('file', this.state.file);
-    formData.append('fullname', this.state.fullname);
-    formData.append('userid', this.state.userid);
+    formData.append('userName', this.state.user_name);
+    formData.append('userId', this.state.user_id);
     formData.append('password', this.state.password);
-    formData.append('phone_number', this.state.phone_number);
+    formData.append('phoneNumber', this.state.phone_number);
     formData.append('email', this.state.email);
     const config = {
       headers: {
@@ -96,11 +96,11 @@ class Signup extends Component {
               </tr>
               <tr>
                 <th>이름</th>
-                <td><input type='text' name='fullname'  value={this.state.fullname} onChange={this.handleValueChange}  /></td>
+                <td><input type='text' name='user_name'  value={this.state.user_name} onChange={this.handleValueChange}  /></td>
               </tr>
               <tr>
                 <th>아이디</th>
-                <td><input type='text' name='userid'  value={this.state.userid} onChange={this.handleValueChange} /></td>
+                <td><input type='text' name='user_id'  value={this.state.user_id} onChange={this.handleValueChange} /></td>
               </tr>
               <tr>
                 <th>비밀번호</th>
