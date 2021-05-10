@@ -9,10 +9,10 @@ class Signup extends Component {
       file: null,
       user_name:'',
       user_id:'',
-      password:'',
+      user_password:'',
       re_password:'',
       phone_number:'',
-      email:''
+      user_email:''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleFileChange = this.handleFileChange.bind(this);
@@ -23,31 +23,20 @@ class Signup extends Component {
     console.log("==============handleSubmit==============");
     e.preventDefault()
     this.addCustomer().then((response) => {
-      console.log(response);
-      if (response.status >= 200 && response.status <= 204) {
-        //     alert('가입에 성공하셨습니다!');
-        //     console.log("----handleSubmit----")
-        //     this.props.history.push("/MyRelationships");
-         }
+      console.log("======response=====");
+      console.log(response.status);
+      if (response.success == true) {
+          alert(response.message)
+         // this.props.history.push("/MyRelationships");
+      }else{
+         alert(response.message)
+        // this.props.history.push("/login");
+      }
     }).catch((error) => {
       console.log(error);
-      //alert('이미 가입된 아이디입니다.');
-    })
-    // const post ={
-    //   userId:"rtwerqwqwe",
-    //   userName:"1111"
-    // }
-    // axios.post('http://localhost:8080/api/memberadd', post)
-    // .then((response) => {
-    //   if (response.status >= 200 && response.status <= 204) {
-    //     alert('가입에 성공하셨습니다!');
-    //     console.log("----handleSubmit----")
-    //     this.props.history.push("/MyRelationships");
-    //   }
-    // })
-    // .catch(() => {
-    //   alert('이미 가입된 아이디입니다.');
-    // })
+      alert('error 가입된 아이디입니다.');
+      //this.props.history.push("/login");
+    });
   }
 
   handleFileChange(e) {
@@ -69,9 +58,9 @@ class Signup extends Component {
     formData.append('file', this.state.file);
     formData.append('userName', this.state.user_name);
     formData.append('userId', this.state.user_id);
-    formData.append('password', this.state.password);
+    formData.append('userPassword', this.state.user_password);
     formData.append('phoneNumber', this.state.phone_number);
-    formData.append('email', this.state.email);
+    formData.append('userEmail', this.state.user_email);
     const config = {
       headers: {
         'Accept': 'application/json, application/*+json',
@@ -104,7 +93,7 @@ class Signup extends Component {
               </tr>
               <tr>
                 <th>비밀번호</th>
-                <td><input type='password' name='password'  value={this.state.password} onChange={this.handleValueChange}  /></td>
+                <td><input type='password' name='user_password'  value={this.state.user_password} onChange={this.handleValueChange}  /></td>
               </tr>
               <tr>
                 <th>비밀번호확인</th>
@@ -116,7 +105,7 @@ class Signup extends Component {
               </tr>
               <tr>
                 <th>Eamail</th>
-                <td><input type='text' name='email'value={this.state.email} onChange={this.handleValueChange}  /></td>
+                <td><input type='text' name='user_email'value={this.state.user_email} onChange={this.handleValueChange}  /></td>
               </tr>
             </tbody>
           </table>
