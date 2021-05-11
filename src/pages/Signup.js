@@ -24,12 +24,12 @@ class Signup extends Component {
     e.preventDefault()
     this.addCustomer().then((response) => {
       console.log("======response=====");
-      console.log(response.status);
-      if (response.success == true) {
-          alert(response.message)
+      console.log(response.data);
+      if (response.data.success == true) {
+          alert(response.data.message)
          // this.props.history.push("/MyRelationships");
       }else{
-         alert(response.message)
+         alert(response.data.message)
         // this.props.history.push("/login");
       }
     }).catch((error) => {
