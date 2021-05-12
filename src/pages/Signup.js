@@ -53,7 +53,7 @@ class Signup extends Component {
   }
 
   addCustomer(){
-    const url = 'http://localhost:8080/api/memberadd';
+    const url = 'http://localhost:8080/api/memberJoin';
     const formData = new FormData();
     formData.append('file', this.state.file);
     formData.append('userName', this.state.user_name);
