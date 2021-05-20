@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import Header from '../layout/Header';
+import axios from 'axios';
 class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -26,7 +27,22 @@ class Login extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
         console.log("----handleSubmit----")
-        this.props.history.push("/MyRelationships");
+        axios.post("http://localhost:8080/api/authenticate", {
+            username: "유지성",
+            password: "climbx@1633"
+        })
+        .then(function (response) {
+             // response 
+             console.log("----response----") 
+             console.log(response)
+        }).catch(function (error) {
+            // 오류발생시 실행
+            console.log("----error----") 
+             console.log(error)
+        }).then(function() {
+            // 항상 실행
+        });
+       // this.props.history.push("/MyRelationships");
     };
 
     render() {
