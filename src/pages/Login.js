@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router,useHistory  } from "react-router-dom";
 import Header from '../layout/Header';
 import axios from 'axios';
 class Login extends React.Component {
@@ -11,7 +11,8 @@ class Login extends React.Component {
             userPassword: "",
             isLogin: null
         };
-    }
+    };
+    
     //이메일 입력창 관리
     handleUserid = (e) => {
         this.setState({
@@ -26,21 +27,27 @@ class Login extends React.Component {
     };
     handleSubmit = (e) => {
         e.preventDefault();
-        console.log("----handleSubmit----")
         axios.post("http://localhost:8080/api/authenticate", {
             username: "유지성",
             password: "climbx@1633"
-        })
-        .then(function (response) {
+        }).then((response) => {
              // response 
-             console.log("----response----") 
-             console.log(response)
-        }).catch(function (error) {
+            console.log(response.data)
+            const  accessToken  = response.data;
+            localStorage.setItem('accessToken', accessToken.token);
+             // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
+            
+            //console.log(axios.defaults.headers.common['Authorization'])
+            //history.push('/MyRelationships');
+            this.props.history.push("/MyRelationships");
+
+        }).catch((error) => {
             // 오류발생시 실행
             console.log("----error----") 
-             console.log(error)
-        }).then(function() {
+            console.log(error)
+        }).then(()  =>{
             // 항상 실행
+
         });
        // this.props.history.push("/MyRelationships");
     };
